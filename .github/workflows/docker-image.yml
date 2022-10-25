@@ -3,16 +3,22 @@ name: Docker Image CI
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
+  schedule:
+    - cron: '0 6 * * Sun'
 
 jobs:
-
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: alpine-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --build-arg PASSWORD=passowrd --file Dockerfile --tag my-image-name:$(date +%s)
+      env:
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: |
+      docker build . \
+        --build-arg PASSWORD=toor \
+        --file Dockerfile \
+        --tag containerpi/alpine-sshd:latest
+      echo "$DOCKER_PASSWORD" |docker login -u="$DOCKER_USER" --password-stdin
+      docker push containerpi/alpine-sshd:latest

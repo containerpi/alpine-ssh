@@ -19,9 +19,11 @@ I have exposed the port 22 in the Dockerfile. You can use the below command to r
 $ sudo docker run -d --name test_sshd \
     -p 2222:22 \
     containerpi/alpine-sshd:latest
-$ sudo docker port test_sshd 22
-  0.0.0.0:49154
 
-$ ssh root@localhost -p 49154
+$ ssh root@localhost -p 2222
 # The password is `toor`
+
+$ sudo docker port test_sshd 22
+0.0.0.0:2222
+:::2222
 ```

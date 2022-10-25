@@ -1,8 +1,8 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ master ]
+  # push:
+  #   branches: [ master ]
   schedule:
     - cron: '0 6 * * Sun'
   workflow_dispatch:
@@ -17,9 +17,8 @@ jobs:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       run: |
-        docker build . \
-          --build-arg PASSWORD=toor \
+        docker build --build-arg PASSWORD=toor \
           --file Dockerfile \
-          --tag containerpi/alpine-sshd:latest
+          --tag containerpi/alpine-sshd:latest .
         echo "$DOCKER_PASSWORD" |docker login -u="$DOCKER_USER" --password-stdin
         docker push containerpi/alpine-sshd:latest

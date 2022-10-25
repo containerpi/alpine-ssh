@@ -5,8 +5,7 @@ A minimal Docker image based on Alpine Linux with a complete package index and o
 # How to build this Dockerfile.
 
 ```
-$ docker build --build-arg \
-    PASSWORD=toor \
+$ docker build --build-arg PASSWORD=toor \
     -t containerpi/alpine-sshd:latest \
     -f Dockerfile .
 ```

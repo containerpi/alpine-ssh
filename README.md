@@ -5,6 +5,7 @@ A minimal Docker image based on Alpine Linux with a complete package index and o
 # How to build this Dockerfile.
 
 ```
+$ git clone https://github.com/containerpi/alpine-ssh.git && cd alpine-ssh
 $ docker build --build-arg PASSWORD=toor \
     -t containerpi/alpine-sshd:latest \
     -f Dockerfile .
@@ -22,6 +23,7 @@ $ sudo docker run -d --name test_sshd \
 $ ssh root@localhost -p 2222
 # The password is `toor`
 
+# if not set spec host port:
 $ sudo docker port test_sshd 22
 0.0.0.0:2222
 :::2222
